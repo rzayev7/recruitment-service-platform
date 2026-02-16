@@ -1,6 +1,7 @@
 package com.recruitment.jobportal.controller;
 
 import com.recruitment.jobportal.dto.LoginRequest;
+import com.recruitment.jobportal.dto.RegisterRequest;
 import com.recruitment.jobportal.entity.User;
 import com.recruitment.jobportal.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +19,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody User user){
-        userService.register(user);
+    public void register(@RequestBody RegisterRequest registerRequest){
+        userService.register(registerRequest);
     }
 
     @PostMapping("/login")

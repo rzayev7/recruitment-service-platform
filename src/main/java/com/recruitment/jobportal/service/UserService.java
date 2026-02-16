@@ -1,6 +1,8 @@
 package com.recruitment.jobportal.service;
 
 import com.recruitment.jobportal.dto.LoginRequest;
+import com.recruitment.jobportal.dto.RegisterRequest;
+import com.recruitment.jobportal.entity.Role;
 import com.recruitment.jobportal.entity.User;
 import com.recruitment.jobportal.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +17,16 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     // REGISTER
-    public User register(User user) {
+    public User register(RegisterRequest registerRequest) {
 
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
             throw new RuntimeException("Email already registered");
         }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = new User();
+        user.setName(registerRequest.getName());
+        user.setEmail(registerRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setRole(Role.valueOf(registerRequest.getRole().toUpperCase()));
 
         return userRepository.save(user);
     }

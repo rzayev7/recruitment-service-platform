@@ -3,12 +3,11 @@ package com.recruitment.jobportal.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 @Getter
 @Setter
-@Entity(name="user_details")
-
+@Entity
+@Table(name="user_details")
 public class User {
 
     @Id

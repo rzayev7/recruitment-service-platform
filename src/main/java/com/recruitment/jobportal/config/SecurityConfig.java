@@ -16,12 +16,16 @@ public class SecurityConfig {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable)      // disable default login form
                 .httpBasic(AbstractHttpConfigurer::disable)      // disable basic auth
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().permitAll()  // TEMP: allow everything for now
+                ).formLogin(form -> form
+                        .loginPage("/login")      // your custom page
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
                 );
+
 
         return http.build();
     }
